@@ -51,11 +51,13 @@ Handle the RouterView outlet component any way you need. Here is a simple exampl
 
 ```js
 // RouterView.js
+import { h } from "hyperapp"
+
 const Views = {
   index: ({ router }) => <h1>{router.title}</h1>,
 };
 
-const RouterView = state => {
+export const RouterView = state => {
   if (state.router.current in Views) {
     const View = Views[state.router.current];
     return <View {...state} />;
