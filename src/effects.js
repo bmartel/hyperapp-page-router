@@ -1,10 +1,11 @@
-const _scrollToTop = (_, { scrollFn }) => {
-  scrollFn({ top: 0, left: 0, behavior: "smooth" });
+const scrollToFx = (_, { scrollFn, to }) => {
+  scrollFn({ ...to, behavior: "smooth" });
 };
 
-export const scrollToTop = (scrollFn) => [
-  _scrollToTop,
+export const scrollTo = ({ to, scrollFn } = {}) => [
+  scrollToFx,
   {
+    to: to || { top: 0, left: 0 },
     scrollFn: scrollFn || window.scrollTo,
   },
 ];

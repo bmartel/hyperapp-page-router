@@ -1,6 +1,8 @@
 {
   "name": "hyperapp-page-router",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "author": "Brandon Martel <brandonmartel@gmail.com>",
+  "license": "MIT",
   "main": "dist/hyperapp-page-router.cjs.js",
   "module": "dist/hyperapp-page-router.esm.js",
   "browser": "dist/hyperapp-page-router.umd.js",

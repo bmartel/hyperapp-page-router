@@ -1,26 +1,25 @@
 import page from "page";
 
-let init = false;
+let _routes = null;
 
-const _router = (dispatch, { routes }) => {
-  // only init once
-  if (init) return;
-  init = true;
+const routerFx = (dispatch, { routes }) => {
+  // only init once per routes change
+  if (_routes === routes) return;
+  _routes = routes;
 
-  Object.keys(routes).forEach((path) => {
+  Object.keys(_routes).forEach((path) => {
     page(path, (context) => {
-      dispatch(routes[path], context);
+      dispatch(_routes[path], context);
     });
   });
 
   page.start();
-  // not supplying a page.stop in a return as we don't want to disconnect unless the user has left the app entirely
+  return page.stop;
 };
 
 export const router = ({ routes }) => [
-  _router,
+  routerFx,
   {
     routes,
   },
 ];
-
