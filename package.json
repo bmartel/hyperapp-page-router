@@ -1,16 +1,17 @@
 {
-  "name": "rollup-starter-lib",
-  "version": "1.0.0",
-  "main": "dist/how-long-till-lunch.cjs.js",
-  "module": "dist/how-long-till-lunch.esm.js",
-  "browser": "dist/how-long-till-lunch.umd.js",
+  "name": "hyperapp-page-router",
+  "version": "0.1.0",
+  "main": "dist/hyperapp-page-router.cjs.js",
+  "module": "dist/hyperapp-page-router.esm.js",
+  "browser": "dist/hyperapp-page-router.umd.js",
   "dependencies": {
-    "ms": "^2.0.0"
+    "page": "^1.11.6"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.1",
     "@rollup/plugin-node-resolve": "^7.0.0",
-    "rollup": "^1.29.0"
+    "rollup": "^1.29.0",
+    "rollup-plugin-terser": "^5.3.0"
   },
   "scripts": {
     "build": "rollup -c",
