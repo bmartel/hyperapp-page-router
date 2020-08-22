@@ -2,7 +2,7 @@ import page from "page";
 
 let _routes = null;
 
-const routerFx = (dispatch, { routes }) => {
+export const routerFx = (dispatch, {routes}) => {
   // only init once per routes change
   if (_routes === routes) return;
   _routes = routes;
@@ -16,10 +16,3 @@ const routerFx = (dispatch, { routes }) => {
   page.start();
   return page.stop;
 };
-
-export const router = ({ routes }) => [
-  routerFx,
-  {
-    routes,
-  },
-];
