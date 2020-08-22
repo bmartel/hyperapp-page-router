@@ -7,7 +7,8 @@
   "module": "dist/hyperapp-page-router.esm.js",
   "browser": "dist/hyperapp-page-router.umd.js",
   "dependencies": {
-    "page": "^1.11.6"
+    "page": "^1.11.6",
+    "path-to-regexp": "~1.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^15.0.0",
