@@ -1,5 +1,5 @@
 import {compile} from "path-to-regexp"
-import  {routerFx} from "./subscriptions"
+import {routerFx} from "./subscriptions"
 import {route} from "./actions"
 
 // Routes
@@ -26,11 +26,11 @@ export const url = ({name, params = {}, query = {}}) => {
   }
 }
 
-const outletView = state => views[router.current](state);
+const outletView = (state, _views) => _views[state.router.current](state);
 
 export const Outlet = ({router, view = outletView, fallback, ...state}) => {
   if (router.current in views) {
-    return view({router, ...state})
+    return view({router, ...state}, views)
   }
   return fallback
 }
