@@ -29,7 +29,7 @@ Create any component view
 // views.js
 import { h, text } from "hyperapp"
 
-export const IndexView = ({ title }) => h('h1', {}, text(title));
+export const IndexView = ({ title }) => h('h1', {}, text(title))
 ```
 
 ## Register Route
