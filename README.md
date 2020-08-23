@@ -37,21 +37,13 @@ export const IndexView = ({ title }) => h('h1', {}, text(title));
 Route actions are optional. Omit this if you just need to load a component view.
 
 ```js
-// index.js
-import { h, app } from "hyperapp"
-import { r, Router } from "hyperapp-router-app"
+// routes.js
+import { r } from "hyperapp-router-app"
+
 import { loadIndex } from "./actions"
 import { IndexView } from "./views"
-import App from "./App"
 
 r({ name: "index", path: "/", action: loadIndex, view: IndexView })
-
-app({
- init: { title: "It works!" },
- subscriptions: () => [Router()],
- view: App,
- node: document.getElementById('app')
-})
 ```
 
 ## Place the Router Outlet
@@ -68,6 +60,23 @@ export default state =>
     h('header', {}, h('a', { href: "/" }, text("Home"))),
     Outlet(state)
   ])
+```
+
+## Subscribe app to Router
+
+```js
+// index.js
+import { h, app } from "hyperapp"
+import { Router } from "hyperapp-router-app"
+
+import App from "./App"
+
+app({
+ init: { title: "It works!" },
+ subscriptions: () => [Router()],
+ view: App,
+ node: document.getElementById('app')
+})
 ```
 
 ## Create a Link
