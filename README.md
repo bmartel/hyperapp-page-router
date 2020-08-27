@@ -62,18 +62,18 @@ export default state =>
   ])
 ```
 
-## Subscribe app to Router
+## Mount Router to app
 
 ```js
 // index.js
 import { h, app } from "hyperapp"
-import { Router } from "hyperapp-router-app"
+import { withRouter } from "hyperapp-router-app"
 
 import App from "./App"
 
-app({
+withRouter(app)({
  init: { title: "It works!" },
- subscriptions: () => [Router()],
+ subscriptions: () => [],
  view: App,
  node: document.getElementById('app')
 })
