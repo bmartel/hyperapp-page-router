@@ -12,82 +12,82 @@ npm i hyperapp-page-router
 
 ```js
 // actions.js
-import { route } from "hyperapp-page-router"
-
-export const loadIndex = route("index", (state, context) => {
-  return {
-    ...state,
-    // set next page state
-  }
+export const loadIndex = (state, context) => [{
+  ...state,
+  // set next page state
+  title: "Loaded the index view"
 }, [
   // run http or other effects to load external data etc.
-]);
+]];
 ```
 
-## Register Route Action
+## Create a Route View
+
+Create any component view
+
+```js
+// views.js
+import { h, text } from "hyperapp"
+
+export const IndexView = ({ title }) => h('h1', {}, text(title))
+```
+
+## Register Route
+
+Route actions are optional. Omit this if you just need to load a component view.
+
+```js
+// routes.js
+import { r } from "hyperapp-router-app"
+
+import { loadIndex } from "./actions"
+import { IndexView } from "./views"
+
+r({ name: "index", path: "/", action: loadIndex, view: IndexView })
+```
+
+## Place the Router Outlet
+
+Normally this will be placed in your main layout or app shell
+
+```js
+// App.js
+import { h, text } from "hyperapp"
+import { Outlet } from "hyperapp-page-router"
+
+export default state =>
+  h('div', {}, [
+    h('header', {}, h('a', { href: "/" }, text("Home"))),
+    Outlet(state)
+  ])
+```
+
+## Subscribe app to Router
 
 ```js
 // index.js
 import { h, app } from "hyperapp"
-import { router } from "hyperapp-router-app"
-import { loadIndex } from "./actions"
+import { Router } from "hyperapp-router-app"
+
 import App from "./App"
 
-const routes = {
-  "/": loadIndex,
-};
-
 app({
- init: {},
- subscriptions: () => [router({ routes })],
- view: state => <App {...state} />,
+ init: { title: "It works!" },
+ subscriptions: () => [Router()],
+ view: App,
  node: document.getElementById('app')
 })
 ```
 
-## Create a RouterView
-
-Handle the RouterView outlet component any way you need. Here is a simple example to get started.
-
-```js
-// RouterView.js
-import { h } from "hyperapp"
-
-const Views = {
-  index: ({ router }) => <h1>{router.title}</h1>,
-};
-
-export const RouterView = state => {
-  if (state.router.current in Views) {
-    const View = Views[state.router.current];
-    return <View {...state} />;
-  }
-  return <div>Not Found</div>;
-};
-```
-
-```js
-// App.js
-import { h } from "hyperapp"
-import { RouterView } from "./RouterView"
-
-export default state => (
-  <div>
-    <header>
-      <a href="/">Home</a>
-    </header>
-    <RouterView {...state} />
-  </div>
-)
-```
-
 ## Create a Link
 
-You can use any anchor tag mapped to a route that matches your registered routes, or a custom wrapped component,
-anything that maps to an anchor tag.
+Using `url` will allow reverse lookups on the routes registered. You can use this in conjunction with any anchor tag to allow a customizable `Link` component to be used. As long as the resulting tag is an `a` tag, it will just work.
 
 ```js
-const Link = ({ to }, children) => <a href={to}>{children}</a>;
+import { h, text } from "hyperapp"
+import { url } from "hyperapp-page-router"
+
+const Link = ({ name, params, query, ...state }, children) => h('a', { href: url({ name, params, query }), ...state }, children)
 ```
 
 ## License
