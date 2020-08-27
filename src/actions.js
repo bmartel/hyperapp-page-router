@@ -16,4 +16,3 @@ const next = (state, router, current) => ({
 
 export const route = (routeName, action) => (state, context) =>
   action(next(state, context, routeName), context);
-
